@@ -39,4 +39,14 @@ public class CriminalRepositoryTest {
         criminalRepository.save(criminal);
         Assertions.assertThrows(Exception.class,()->criminalRepository.findAll());
     }
+
+    @Test
+    @DirtiesContext
+    public void should_return_true_given_id_of_criminal(){
+        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"));
+        criminalRepository.save(criminal);
+        Criminal result = criminalRepository.findById(Long.valueOf(1)).orElse(null);
+        String json = "{\"id\":1,\"name\":\"Jerry Kill Felicity\",\"time\":20190717195312}";
+        Assertions.assertEquals(json,result.toString());
+    }
 }

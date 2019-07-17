@@ -6,7 +6,6 @@ import javax.persistence.*;
 public class Criminal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
@@ -46,5 +45,18 @@ public class Criminal {
 
     public void setTime(Long time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":")
+                .append(id);
+        sb.append(",\"name\":\"")
+                .append(name).append('\"');
+        sb.append(",\"time\":")
+                .append(time);
+        sb.append('}');
+        return sb.toString();
     }
 }
