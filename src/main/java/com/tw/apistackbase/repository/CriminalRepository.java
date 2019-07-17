@@ -8,4 +8,6 @@ import java.util.List;
 public interface CriminalRepository extends CrudRepository<Criminal,Long> {
 
     List<Criminal> findAllByOrderByTimeDesc();
+
+    List<Criminal> findAllByName(String name);
 }

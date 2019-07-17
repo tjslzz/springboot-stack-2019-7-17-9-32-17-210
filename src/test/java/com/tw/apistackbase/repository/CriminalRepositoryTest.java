@@ -61,4 +61,17 @@ public class CriminalRepositoryTest {
         String json = "[{\"id\":2,\"name\":\"Jerry Kill Laura\",\"time\":20190717195702}, {\"id\":1,\"name\":\"Jerry Kill Felicity\",\"time\":20190717195312}]";
         Assertions.assertEquals(json,criminals.toString());
     }
+
+
+    @Test
+    @DirtiesContext
+    public void should_return_true_list_given_name_of_criminal(){
+        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"));
+        Criminal criminal2 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195702"));
+        criminalRepository.save(criminal1);
+        criminalRepository.save(criminal2);
+        List<Criminal> criminals = criminalRepository.findAllByName("Jerry Kill Felicity");
+        String json = "[{\"id\":1,\"name\":\"Jerry Kill Felicity\",\"time\":20190717195312}, {\"id\":2,\"name\":\"Jerry Kill Felicity\",\"time\":20190717195702}]";
+        Assertions.assertEquals(json,criminals.toString());
+    }
 }
