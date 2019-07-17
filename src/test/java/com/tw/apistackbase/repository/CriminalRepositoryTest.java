@@ -49,4 +49,16 @@ public class CriminalRepositoryTest {
         String json = "{\"id\":1,\"name\":\"Jerry Kill Felicity\",\"time\":20190717195312}";
         Assertions.assertEquals(json,result.toString());
     }
+
+    @Test
+    @DirtiesContext
+    public void should_return_asc_list_given_id_of_criminal(){
+        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"));
+        Criminal criminal2 = new Criminal("Jerry Kill Laura",Long.valueOf("20190717195702"));
+        criminalRepository.save(criminal1);
+        criminalRepository.save(criminal2);
+        List<Criminal> criminals = criminalRepository.findAllByOrderByTimeDesc();
+        String json = "[{\"id\":2,\"name\":\"Jerry Kill Laura\",\"time\":20190717195702}, {\"id\":1,\"name\":\"Jerry Kill Felicity\",\"time\":20190717195312}]";
+        Assertions.assertEquals(json,criminals.toString());
+    }
 }
