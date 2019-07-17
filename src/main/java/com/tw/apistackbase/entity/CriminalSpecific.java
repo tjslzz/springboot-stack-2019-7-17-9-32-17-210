@@ -45,4 +45,17 @@ public class CriminalSpecific {
     public void setSubjective(String subjective) {
         this.subjective = subjective;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":")
+                .append(id);
+        sb.append(",\"objective\":\"")
+                .append(objective).append('\"');
+        sb.append(",\"subjective\":\"")
+                .append(subjective).append('\"');
+        sb.append('}');
+        return sb.toString();
+    }
 }

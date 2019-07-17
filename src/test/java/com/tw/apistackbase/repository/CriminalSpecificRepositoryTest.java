@@ -38,4 +38,14 @@ public class CriminalSpecificRepositoryTest {
         criminalSpecificRepository.save(criminalSpecific);
         Assertions.assertThrows(Exception.class,()->criminalSpecificRepository.findAll());
     }
+
+    @Test
+    @DirtiesContext
+    public void should_return_true_criminal_specific_given_id(){
+        CriminalSpecific criminalSpecific = new CriminalSpecific("Jerry Kill Sean","Sean kill Laura");
+        criminalSpecificRepository.save(criminalSpecific);
+        CriminalSpecific result = criminalSpecificRepository.findById(Long.valueOf("1")).orElse(null);
+        String json = "{\"id\":1,\"objective\":\"Jerry Kill Sean\",\"subjective\":\"Sean kill Laura\"}";
+        Assertions.assertEquals(json,result.toString());
+    }
 }
