@@ -38,4 +38,14 @@ public class ProcuratorateRepositoryTest {
         procuratorateRepository.save(procuratorate2);
         Assertions.assertThrows(Exception.class,()->procuratorateRepository.findAll());
     }
+
+    @Test
+    @DirtiesContext
+    public void should_return_true_procuratorate_info_given_1(){
+        Procuratorate procuratorate = new Procuratorate("OOCL");
+        procuratorateRepository.save(procuratorate);
+        Procuratorate result = procuratorateRepository.findById(Long.valueOf(1)).orElse(null);
+        String json = "{\"id\":1,\"name\":\"OOCL\"}";
+        Assertions.assertEquals(json,result.toString());
+    }
 }
