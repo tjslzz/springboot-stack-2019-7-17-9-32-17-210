@@ -15,9 +15,13 @@ public class Criminal {
     @Column(nullable = false)
     private Long time;
 
-    public Criminal(String name, Long time) {
+    @OneToOne
+    private CriminalSpecific criminalSpecific;
+
+    public Criminal(String name, Long time, CriminalSpecific criminalSpecific) {
         this.name = name;
         this.time = time;
+        this.criminalSpecific = criminalSpecific;
     }
 
     public Criminal() {
@@ -47,6 +51,14 @@ public class Criminal {
         this.time = time;
     }
 
+    public CriminalSpecific getCriminalSpecific() {
+        return criminalSpecific;
+    }
+
+    public void setCriminalSpecific(CriminalSpecific criminalSpecific) {
+        this.criminalSpecific = criminalSpecific;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -56,6 +68,8 @@ public class Criminal {
                 .append(name).append('\"');
         sb.append(",\"time\":")
                 .append(time);
+        sb.append(",\"criminalSpecific\":")
+                .append(criminalSpecific);
         sb.append('}');
         return sb.toString();
     }

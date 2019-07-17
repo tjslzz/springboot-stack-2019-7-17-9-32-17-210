@@ -26,7 +26,7 @@ public class CriminalRepositoryTest {
     @Test
     @DirtiesContext
     public void should_return_success_given_correct_criminal(){
-        Criminal criminal = new Criminal("Jerry Kill Felicity",new Date().getTime());
+        Criminal criminal = new Criminal("Jerry Kill Felicity",new Date().getTime(),null);
         criminalRepository.save(criminal);
         List<Criminal> criminals = (List<Criminal>) criminalRepository.findAll();
         Assertions.assertEquals(1,criminals.size());
@@ -43,7 +43,7 @@ public class CriminalRepositoryTest {
     @Test
     @DirtiesContext
     public void should_return_true_given_id_of_criminal(){
-        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"));
+        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"),null);
         criminalRepository.save(criminal);
         Criminal result = criminalRepository.findById(Long.valueOf(1)).orElse(null);
         String json = "{\"id\":1,\"name\":\"Jerry Kill Felicity\",\"time\":20190717195312}";
@@ -53,8 +53,8 @@ public class CriminalRepositoryTest {
     @Test
     @DirtiesContext
     public void should_return_asc_list_given_id_of_criminal(){
-        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"));
-        Criminal criminal2 = new Criminal("Jerry Kill Laura",Long.valueOf("20190717195702"));
+        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"),null);
+        Criminal criminal2 = new Criminal("Jerry Kill Laura",Long.valueOf("20190717195702"),null);
         criminalRepository.save(criminal1);
         criminalRepository.save(criminal2);
         List<Criminal> criminals = criminalRepository.findAllByOrderByTimeDesc();
@@ -65,8 +65,8 @@ public class CriminalRepositoryTest {
     @Test
     @DirtiesContext
     public void should_return_true_list_given_name_of_criminal(){
-        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"));
-        Criminal criminal2 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195702"));
+        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"),null);
+        Criminal criminal2 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195702"),null);
         criminalRepository.save(criminal1);
         criminalRepository.save(criminal2);
         List<Criminal> criminals = criminalRepository.findAllByName("Jerry Kill Felicity");
@@ -78,8 +78,8 @@ public class CriminalRepositoryTest {
     @Test
     @DirtiesContext
     public void should_return_true_size_given_name_of_criminal(){
-        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"));
-        Criminal criminal2 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195702"));
+        Criminal criminal1 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195312"),null);
+        Criminal criminal2 = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717195702"),null);
         criminalRepository.save(criminal1);
         criminalRepository.save(criminal2);
         criminalRepository.deleteById(Long.valueOf(1));
