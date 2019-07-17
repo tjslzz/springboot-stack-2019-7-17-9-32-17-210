@@ -1,6 +1,7 @@
 package com.tw.apistackbase.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
@@ -12,11 +13,19 @@ public class Procuratorate {
     @Column(name = "name",length = 50,nullable = false)
     private String name;
 
+    @OneToMany
+    private List<Prosecutor> prosecutors;
+
     public Procuratorate() {
     }
 
     public Procuratorate(String name) {
         this.name = name;
+    }
+
+    public Procuratorate(String name, List<Prosecutor> prosecutors) {
+        this.name = name;
+        this.prosecutors = prosecutors;
     }
 
     public Long getId() {
@@ -42,6 +51,8 @@ public class Procuratorate {
                 .append(id);
         sb.append(",\"name\":\"")
                 .append(name).append('\"');
+        sb.append(",\"prosecutors\":")
+                .append(prosecutors);
         sb.append('}');
         return sb.toString();
     }
