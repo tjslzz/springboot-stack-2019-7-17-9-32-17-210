@@ -38,5 +38,14 @@ public class ProsecutorRepositoryTest {
         Assertions.assertThrows(Exception.class,()->prosecutorRepository.findAll());
     }
 
+    @Test
+    @DirtiesContext
+    public void should_return_true_info_given_1(){
+        Prosecutor prosecutor = new Prosecutor("jerryLi");
+        prosecutorRepository.save(prosecutor);
+        Prosecutor result = prosecutorRepository.findById(Long.valueOf(1)).orElse(null);
+        String json = "{\"id\":1,\"name\":\"jerryLi\"}";
+        Assertions.assertEquals(json,result.toString());
+    }
 
 }
