@@ -74,7 +74,6 @@ public class CriminalRepositoryTest {
         Assertions.assertEquals(json,criminals.toString());
     }
 
-
     @Test
     @DirtiesContext
     public void should_return_true_size_given_name_of_criminal(){
@@ -86,4 +85,5 @@ public class CriminalRepositoryTest {
         List<Criminal> criminals = (List<Criminal>) criminalRepository.findAll();
         Assertions.assertEquals(1,criminals.size());
     }
+
 }

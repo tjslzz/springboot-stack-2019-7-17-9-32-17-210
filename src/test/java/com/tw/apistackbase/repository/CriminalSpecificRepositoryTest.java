@@ -62,4 +62,25 @@ public class CriminalSpecificRepositoryTest {
         String json = "{\"id\":2,\"name\":\"Jerry Kill Felicity\",\"time\":20190717205055,\"criminalSpecific\":{\"id\":1,\"objective\":\"Jerry Kill Sean\",\"subjective\":\"Sean kill Laura\"}}";
         Assertions.assertEquals(json,result.toString());
     }
+
+
+    @Test
+    @DirtiesContext
+    public void should_return_true_info_given_new_specific(){
+        CriminalSpecific criminalSpecific = new CriminalSpecific("Jerry Kill Sean","Sean kill Laura");
+        criminalSpecificRepository.save(criminalSpecific);
+        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717205055"),criminalSpecific);
+        criminalRepository.save(criminal);
+        CriminalSpecific criminalSpecific2 = new CriminalSpecific("Jerry Kill Laura","Laura kill Sean");
+        criminalSpecificRepository.save(criminalSpecific2);
+
+        Criminal criminal2 = criminalRepository.findAllByName("Jerry Kill Felicity").get(0);
+        criminal2.setCriminalSpecific(criminalSpecific2);
+        criminalRepository.save(criminal2);
+
+        Criminal result = criminalRepository.findAllByName("Jerry Kill Felicity").get(0);
+
+        String json = "{\"id\":2,\"name\":\"Jerry Kill Felicity\",\"time\":20190717205055,\"criminalSpecific\":{\"id\":3,\"objective\":\"Jerry Kill Laura\",\"subjective\":\"Laura kill Sean\"}}";
+        Assertions.assertEquals(json,result.toString());
+    }
 }
