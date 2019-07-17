@@ -56,7 +56,7 @@ public class CriminalSpecificRepositoryTest {
     public void should_return_true_criminal_info_given_one_to_one(){
         CriminalSpecific criminalSpecific = new CriminalSpecific("Jerry Kill Sean","Sean kill Laura");
         criminalSpecificRepository.save(criminalSpecific);
-        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717205055"),criminalSpecific);
+        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717205055"),criminalSpecific,null);
         criminalRepository.save(criminal);
         Criminal result = criminalRepository.findAllByName("Jerry Kill Felicity").get(0);
         String json = "{\"id\":2,\"name\":\"Jerry Kill Felicity\",\"time\":20190717205055,\"criminalSpecific\":{\"id\":1,\"objective\":\"Jerry Kill Sean\",\"subjective\":\"Sean kill Laura\"}}";
@@ -69,7 +69,7 @@ public class CriminalSpecificRepositoryTest {
     public void should_return_true_info_given_new_specific(){
         CriminalSpecific criminalSpecific = new CriminalSpecific("Jerry Kill Sean","Sean kill Laura");
         criminalSpecificRepository.save(criminalSpecific);
-        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717205055"),criminalSpecific);
+        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717205055"),criminalSpecific,null);
         criminalRepository.save(criminal);
         CriminalSpecific criminalSpecific2 = new CriminalSpecific("Jerry Kill Laura","Laura kill Sean");
         criminalSpecificRepository.save(criminalSpecific2);

@@ -18,10 +18,14 @@ public class Criminal {
     @OneToOne
     private CriminalSpecific criminalSpecific;
 
-    public Criminal(String name, Long time, CriminalSpecific criminalSpecific) {
+    @OneToOne
+    private Procuratorate procuratorate;
+
+    public Criminal(String name, Long time, CriminalSpecific criminalSpecific, Procuratorate procuratorate) {
         this.name = name;
         this.time = time;
         this.criminalSpecific = criminalSpecific;
+        this.procuratorate = procuratorate;
     }
 
     public Criminal() {
@@ -59,6 +63,14 @@ public class Criminal {
         this.criminalSpecific = criminalSpecific;
     }
 
+    public Procuratorate getProcuratorate() {
+        return procuratorate;
+    }
+
+    public void setProcuratorate(Procuratorate procuratorate) {
+        this.procuratorate = procuratorate;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -70,6 +82,8 @@ public class Criminal {
                 .append(time);
         sb.append(",\"criminalSpecific\":")
                 .append(criminalSpecific);
+        sb.append(",\"procuratorate\":")
+                .append(procuratorate);
         sb.append('}');
         return sb.toString();
     }
