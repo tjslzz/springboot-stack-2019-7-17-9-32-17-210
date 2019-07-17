@@ -71,4 +71,28 @@ public class ProcuratorateRepositoryTest {
         String json = "{\"id\":3,\"name\":\"Jerry Kill Felicity\",\"time\":20190717205055,\"criminalSpecific\":{\"id\":2,\"objective\":\"Jerry Kill Sean\",\"subjective\":\"Sean kill Laura\"},\"procuratorate\":{\"id\":1,\"name\":\"OOCL\"}}";
         Assertions.assertEquals(json,result.toString());
     }
+
+
+    @Test
+    @DirtiesContext
+    public void should_return_true_info_given_new_procuratorate(){
+        Procuratorate procuratorate = new Procuratorate("OOCL");
+        procuratorateRepository.save(procuratorate);
+
+        Procuratorate procuratorate1 = new Procuratorate("COSCO");
+        procuratorateRepository.save(procuratorate1);
+
+        CriminalSpecific criminalSpecific = new CriminalSpecific("Jerry Kill Sean","Sean kill Laura");
+        criminalSpecificRepository.save(criminalSpecific);
+        Criminal criminal = new Criminal("Jerry Kill Felicity",Long.valueOf("20190717205055"),criminalSpecific,procuratorate);
+        criminalRepository.save(criminal);
+
+        Criminal result = criminalRepository.findAllByName("Jerry Kill Felicity").get(0);
+        result.setProcuratorate(procuratorate1);
+
+        criminalRepository.save(result);
+
+        String json = "{\"id\":4,\"name\":\"Jerry Kill Felicity\",\"time\":20190717205055,\"criminalSpecific\":{\"id\":3,\"objective\":\"Jerry Kill Sean\",\"subjective\":\"Sean kill Laura\"},\"procuratorate\":{\"id\":2,\"name\":\"COSCO\"}}";
+        Assertions.assertEquals(json,criminalRepository.findAllByName("Jerry Kill Felicity").get(0).toString());
+    }
 }
